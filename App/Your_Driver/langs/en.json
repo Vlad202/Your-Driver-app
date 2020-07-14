@@ -1,0 +1,67 @@
+{
+    "lang": "en",
+    "signin_btn": "SIGN IN",
+    "register": "Sign up",
+    "signin": "Sign in",
+    "reset_pass": "Forgot your password?",
+    "alreadyHaveAcc": "Already have an account? Sign in",
+    "btnSend": "SEND",
+    "geoProblemPermission": "If you have problems with geolocation, call us:",
+    "oneDayDriverBtn": "Driver for a day",
+    "driverBtn": "Driver",
+    "driverIsFound": "Driver found, expect a call or call:",
+    "disableOrderBtn": "Cancel the order",
+    "btnconfirm": "Confirm",
+    "searchDriver": "Searching for driver...",
+    "searchFullDayDriver": "Searching for a driver for a day...",
+    "yourGeo": "Your location:",
+
+        "confirmCode": "Confirmation code",
+        "confirmPass": "Confirm the password",
+        "phone": "Phone",
+        "password": "Password",
+    "errors": {
+        "geoError": {
+            "name": "Oops ... Could not find out your location",
+            "body": "Please give the application access to your geolocation."
+        },
+        "minus35": {
+            "name": "Oops, something went wrong.",
+            "body": "Invalid confirmation code."
+        },
+        "minus34": {
+            "name": "Oops, something went wrong.",
+            "body": "Invalid phone number format."
+        },
+        "minus32": {
+            "name": "Failed to register!",
+            "body": "A user with such a phone already exists!"
+        },
+        "minus2": {
+            "name": "Oops, something went wrong.",
+            "body": "The username or password is incorrect."
+        },
+        "minus3": {
+            "name": "Oops, something went wrong.",
+            "body": "Could not find user with this phone number."
+        },
+        "minus4": {
+            "name": "Oops, something went wrong.",
+            "body": "The system has more than one user with this phone number."
+        },
+        "minus5": {
+            "name": "Oops, something went wrong.",
+            "body": "Too many requests in a short time."
+        },
+        "minus31": {
+            "name": "Oops, something went wrong.",
+            "body": "The operation is prohibited by the settings of “Taxi Navigator” (Loyalty data -> Edit client -> Disable password change)"
+        }
+    },
+    "tariffs": {
+        "fullDay": "1500грн до 24год.",
+        "one": "200 UAH to 3 km",
+        "two": "20 UAH / km all that more",
+        "three": "3 UAH / min standby"
+    }
+}
