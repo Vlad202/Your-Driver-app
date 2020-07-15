@@ -49,7 +49,7 @@ export default class App extends Component {
     );
     axios.get('http://cors-test.appspot.com/test')
     .then(data => {
-      if (data.status === 200) this.setState({auth_flag: true});
+      // if (data.status === 200) this.setState({auth_flag: true});
     })
     Font.loadAsync({
       SatisfyRegular: require('./assets/fonts/Satisfy-Regular.ttf'),

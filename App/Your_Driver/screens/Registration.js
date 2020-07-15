@@ -24,24 +24,25 @@ export class Registration extends Component {
             Alert.alert('Введите корректный номер телефона!', 'Длина номера телефона должна равняться 12 символам. Номер должен начинаться с цифры 3')
             return null;
         }
-        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/register', {
-            method: 'POST',
+        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/register', 
+        {
+            phone: this.state.phone,
+            confirm_code: this.state.confirm_code,
+            password: this.state.password,
+            confirm_password: this.state.confirm_pass,
+            user_first_name: this.state.name,
+        },
+        {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': '', 
                 'Authorization': 'Basic YWNod...YQ==',
-                'X-WO-API-APP-ID': 'driver'
+                'X-WO-API-APP-ID': '10999'
             },
-            data: {
-              phone: this.state.phone,
-              confirm_code: this.state.confirm_code,
-              password: this.state.password,
-              confirm_password: this.state.confirm_pass,
-              user_first_name: this.state.name,
-            }
           })
           .then(data => {
+              console.log(data);
             if (data.status === 200) {
                 console.log(data);
                 SyncStorage.set('phone', this.state.phone);
@@ -49,9 +50,9 @@ export class Registration extends Component {
                 this.props.navigation.dispatch(StackActions.replace('OrderWait'));
             }
           })
-          .catch(error => {
-              console.log(error);
-          })
+        //   .catch(error => {
+        //       console.log(error);
+        //   })
     }
     render() {
         return (

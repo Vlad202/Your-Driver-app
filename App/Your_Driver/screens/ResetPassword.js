@@ -36,40 +36,40 @@ export class ResetPassword extends Component {
         });
     }
     SendCode = () => {
-        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/restore/sendConfirmCode', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json; charset=utf-8',
-                'Content-Length': '', 
-                // 'Authorization': 'Basic YWNod...YQ==',
-                // 'X-WO-API-APP-ID': '10999',
-            },
-            data: {
+        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/restore/sendConfirmCode', 
+            // method: 'POST',
+            // headers: {
+            //     'Accept': 'application/json',
+            //     'Content-Type': 'application/json; charset=utf-8',
+            //     'Content-Length': '', 
+            //     // 'Authorization': 'Basic YWNod...YQ==',
+            //     // 'X-WO-API-APP-ID': '10999',
+            // },
+             {
                 phone: this.state.phone,
             }
-        })
+        )
         .then((data) => {
             console.log(data);
             if (data.status === 200) {
                 SyncStorage.set('phone', this.state.phone);
                 this.props.navigation.navigate('ResetPasswordConfirm');
             }
-            if (data.Id === -3) {
-                Alert.alert(this.state.lang_obj.errors.minus3.name, this.state.lang_obj.errors.minus3.body,[{text: 'OK'}])
-            }
-            if (data.Id === -4) {
-                Alert.alert(this.state.lang_obj.errors.minus4.name, this.state.lang_obj.errors.minus4.body,[{text: 'OK'}])
-            }
-            if (data.Id === -5) {
-                Alert.alert(this.state.lang_obj.errors.minus5.name, this.state.lang_obj.errors.minus5.body,[{text: 'OK'}])
-            }
-            if (data.Id === -31) {
-                Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
-            }
-            if (data.Id === -34) {
-                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body,[{text: 'OK'}])
-            }
+            // if (data.Id === -3) {
+            //     Alert.alert(this.state.lang_obj.errors.minus3.name, this.state.lang_obj.errors.minus3.body,[{text: 'OK'}])
+            // }
+            // if (data.Id === -4) {
+            //     Alert.alert(this.state.lang_obj.errors.minus4.name, this.state.lang_obj.errors.minus4.body,[{text: 'OK'}])
+            // }
+            // if (data.Id === -5) {
+            //     Alert.alert(this.state.lang_obj.errors.minus5.name, this.state.lang_obj.errors.minus5.body,[{text: 'OK'}])
+            // }
+            // if (data.Id === -31) {
+            //     Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
+            // }
+            // if (data.Id === -34) {
+            //     Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body,[{text: 'OK'}])
+            // }
         });
     }
     render() {
@@ -77,14 +77,14 @@ export class ResetPassword extends Component {
             <View style={styles.MainLogin}>
                 <View>
                     <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
                         <TouchableOpacity onPress={() => {
                             this.setState({lang_obj: ru});
                             SyncStorage.set('lang', 'ru')
                         }}>
-                            <Flag
+                            <Flag 
                                 code="RU"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -93,7 +93,7 @@ export class ResetPassword extends Component {
                         }}>
                             <Flag
                                 code="UA"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -102,7 +102,7 @@ export class ResetPassword extends Component {
                         }}>
                             <Flag
                                 code="US"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                     </View>

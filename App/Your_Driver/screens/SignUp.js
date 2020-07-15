@@ -44,8 +44,11 @@ export class SignUp extends Component {
         //     Alert.alert('Введите корректный номер телефона!', 'Длина номера телефона должна равняться 12 символам. Номер должен начинаться с цифры 3')
         //     return null;
         // }
-        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/register/sendConfirmCode', {
-            method: 'POST',
+        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/register/sendConfirmCode', 
+        {
+            phone: this.state.phone,
+        },
+        {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
@@ -53,9 +56,6 @@ export class SignUp extends Component {
                 'Authorization': 'Basic YWNod...YQ==',
                 'X-WO-API-APP-ID': '10999',
             },
-            data: {
-                phone: this.state.phone,
-            }
         })
         .then((data) => {
             if(data.status === 200) {
@@ -65,29 +65,30 @@ export class SignUp extends Component {
                 return
             }
             console.log(data);
-            if (data.Id === -32) {
-                Alert.alert(this.state.lang_obj.errors.minus32.name, 
-                    this.state.lang_obj.errors.minus32.body,
-                    [
-                        {
-                            text: 'OK', onPress: () => this.props.navigation.navigate('SignIn')
-                        }
-                    ]    
-                )
-            }
-            if (data.Id === -34) {
-                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
-            }
-            if (data.Id === -31) {
-                Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
-            }
-            if (data.Id === -33) {
-                Alert.alert(this.state.lang_obj.errors.minus33.name, this.state.lang_obj.errors.minus33.body,[{text: 'OK'}])
-            }
+            // if (data.Id === -32) {
+            //     Alert.alert(this.state.lang_obj.errors.minus32.name, 
+            //         this.state.lang_obj.errors.minus32.body,
+            //         [
+            //             {
+            //                 text: 'OK', onPress: () => this.props.navigation.navigate('SignIn')
+            //             }
+            //         ]    
+            //     )
+            // }
+            // if (data.Id === -34) {
+            //     Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
+            // }
+            // if (data.Id === -31) {
+            //     Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
+            // }
+            // if (data.Id === -33) {
+            //     Alert.alert(this.state.lang_obj.errors.minus33.name, this.state.lang_obj.errors.minus33.body,[{text: 'OK'}])
+            // }
         })
         .catch(error => {
+            console.log(error);
             // if (error.Id === -34) {
-                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
+                // Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
             // }
         })
     }

@@ -38,7 +38,7 @@ export class SignIn extends Component {
     }
     cryptoPass = async () => {
         const digest = await Crypto.digestStringAsync(
-            Crypto.CryptoDigestAlgorithm.SHA256,
+            Crypto.CryptoDigestAlgorithm.SHA512,
             this.state.password
         )
         this.state.password = await digest;
@@ -51,48 +51,50 @@ export class SignIn extends Component {
     LoginBtn = async () => {
         await this.cryptoPass();
         console.log(await this.state.password);
-        await axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account', {
-            method: 'POST',
+        axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/', 
+        {
+            phone: this.state.phone,
+            password: this.state.password,
+        },
+        {
+            method: "POST",
+            url: "http://online.deluxe-taxi.kiev.ua:9050/api/account/   ",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': '', 
-                'Authorization': 'Basic YWNod...YQ==',
                 'X-WO-API-APP-ID': '10999'
             },
-            data: {
-              phone: this.state.phone,
-              password: this.state.password,
-            }
           })
           .then(data => {
+            console.log(data);
             if (data.status === 200) {
                 SyncStorage.set('phone', this.state.login);
                 this.props.navigation.dispatch(StackActions.replace('OrderWait'));
             }
           })
-          .catch(error => {
-            //   if (error.status === 401) {
-                // if (data.Id === -2) {
-                // console.log(error);
-                Alert.alert(this.state.lang_obj.errors.minus2.name, this.state.lang_obj.errors.minus2.body, [{text: 'OK'}])
-                // }
-            //   }
-          })
+        //   .catch(error => {
+        //     //   if (error.status === 401) {
+        //         // if (data.Id === -2) {
+        //         // console.log(error);
+        //         Alert.alert(this.state.lang_obj.errors.minus2.name, this.state.lang_obj.errors.minus2.body, [{text: 'OK'}])
+        //         // }
+        //     //   }
+        //   })
     }
     render() {
         return (
             <View style={styles.MainLogin}>
                 <View>
                     <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
                         <TouchableOpacity onPress={() => {
                             this.setState({lang_obj: ru});
                             SyncStorage.set('lang', 'ru')
                         }}>
-                            <Flag
+                            <Flag 
                                 code="RU"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -101,7 +103,7 @@ export class SignIn extends Component {
                         }}>
                             <Flag
                                 code="UA"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -110,7 +112,7 @@ export class SignIn extends Component {
                         }}>
                             <Flag
                                 code="US"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                     </View>

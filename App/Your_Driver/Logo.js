@@ -16,6 +16,7 @@ export class Logo extends Component {
     return (
         <View>
             <Text style={styles.Logo}>Your Driver</Text>
+            <View style = {styles.lineStyle} />
         </View>
     )
   }

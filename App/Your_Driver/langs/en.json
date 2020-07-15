@@ -59,7 +59,7 @@
         }
     },
     "tariffs": {
-        "fullDay": "1500грн до 24год.",
+        "fullDay": "1500 UAH up to 24 hours.",
         "one": "200 UAH to 3 km",
         "two": "20 UAH / km all that more",
         "three": "3 UAH / min standby"

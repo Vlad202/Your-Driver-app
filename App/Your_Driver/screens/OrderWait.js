@@ -126,14 +126,14 @@ export class OrderWait extends Component {
         <View style={styles.Main}>
                 <View>
                     <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
                         <TouchableOpacity onPress={() => {
                             this.setState({lang_obj: ru});
                             SyncStorage.set('lang', 'ru')
                         }}>
-                            <Flag
+                            <Flag 
                                 code="RU"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -142,7 +142,7 @@ export class OrderWait extends Component {
                         }}>
                             <Flag
                                 code="UA"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -151,7 +151,7 @@ export class OrderWait extends Component {
                         }}>
                             <Flag
                                 code="US"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                     </View>

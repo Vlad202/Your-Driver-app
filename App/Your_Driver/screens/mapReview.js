@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from '../Styles'
-import {View, Text, Button, Alert, TouchableOpacity, Linking} from 'react-native'
+import {View, Text, ActivityIndicator, Alert, TouchableOpacity, Linking} from 'react-native'
 import SyncStorage from 'sync-storage';
 import { Map } from './Map'
 import axios from 'axios';
@@ -128,7 +128,8 @@ export class MapReview extends Component {
           // if (+i.houses[0].lat == this.state.location.lat && +i.houses[0].lng == this.state.location.lon) {
             // if (+i.houses[0].lat > closestRightLat && +i.houses[0].lat < closestLeftLat && +i.houses[0].lng > closestRightLng && +i.houses[0].lng < closestRightLng) {
               if (+i.houses[0].lng === closestLeftLng)
-              this.setState({location_name: i.name + i.houses[0].house});
+              this.setState({location_name: i.name});
+              this.setState({location_number: i.houses[0].house});
               console.log(this.state.location_name)
             // }
           // }
@@ -140,28 +141,32 @@ export class MapReview extends Component {
       // });
     )
 
-    await axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/weborders/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=utf-8',
-          'Content-Length': '', 
-          'Authorization': 'Basic YWNod...YQ==',
-          'X-WO-API-APP-ID': '10999'
-        },
-        data: {
+    await axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/weborders/', 
+        { 
           reservation: false,
           user_full_name: "Влад Думанский",
           user_phone: "380661394160",
-          route: {
+          route: [{
             name: this.state.location_name,
             lat: this.state.location.lat,
             lng: this.state.location.lon,
-          },
+            number: this.state.location_number,
+          }],
+          route_undefined: false,
           flexible_tariff_name: 'Стандарт',
           taxiColumnId: 0,
+          params: 'тест1',
+        }, 
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8',
+            'Content-Length': '', 
+            'Authorization': 'Basic YWNod...YQ==',
+            'X-WO-API-APP-ID': '10999'
+          },
         }
-      })
+      )
       .then(data => {
         console.log(data);
         if (data.status === 200) {
@@ -185,14 +190,14 @@ export class MapReview extends Component {
         <View style={styles.Main}>
                 <View>
                     <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
                         <TouchableOpacity onPress={() => {
                             this.setState({lang_obj: ru});
                             SyncStorage.set('lang', 'ru')
                         }}>
-                            <Flag
+                            <Flag 
                                 code="RU"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -201,7 +206,7 @@ export class MapReview extends Component {
                         }}>
                             <Flag
                                 code="UA"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
@@ -210,7 +215,7 @@ export class MapReview extends Component {
                         }}>
                             <Flag
                                 code="US"
-                                size={64}
+                                size={48}
                             />
                         </TouchableOpacity>
                     </View>
@@ -226,7 +231,7 @@ export class MapReview extends Component {
             </View>
             {/* <Text style={styles.linkSite}  onPress={() => (Linking.openURL('http://yourdriver.cc.ua/'))}>yourdriver.cc.ua</Text> */}
           </View>
-          <View> 
+          <View>
             {MAP}
           </View>
           <View>

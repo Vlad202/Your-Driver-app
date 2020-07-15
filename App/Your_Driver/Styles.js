@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 const styles = {
   Main: {
     flex: 1,
-    backgroundColor: '#222',
+    backgroundColor: '#000',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
@@ -28,6 +28,7 @@ const styles = {
     alignItems: 'center',
   },
   HelpText: {
+    fontSize: 14,
     color: 'white',
   },
   Phones: {
@@ -106,6 +107,31 @@ const styles = {
   },
   appButtonText: {
     fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
+  containerLoad: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  lineStyle: {
+    borderWidth: 1.5,
+    borderColor:'white',
+    marginLeft: "-50%",
+    width: '200%',
+    // marginTop: 10,
+    marginBottom: 15,
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  },
+  appButtonCheckText: {
+    fontSize: 18,
+    paddingBottom: 20,
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
