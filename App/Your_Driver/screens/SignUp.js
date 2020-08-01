@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as Font from 'expo-font';
 import styles from '../Styles'
-import {View, Text, Button, Alert, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, Image, Alert, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { Input } from 'react-native-elements';
 import SyncStorage from 'sync-storage';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import * as ru from '../langs/ru.json';
 import * as uk from '../langs/uk.json';
 import * as en from '../langs/en.json';
 import Flag from 'react-native-flags';
+import { Dimensions } from 'react-native';
 
 export class SignUp extends Component {
     state = {
@@ -44,6 +45,7 @@ export class SignUp extends Component {
         //     Alert.alert('Введите корректный номер телефона!', 'Длина номера телефона должна равняться 12 символам. Номер должен начинаться с цифры 3')
         //     return null;
         // }
+        console.log(this.state.phone)
         axios.post('http://online.deluxe-taxi.kiev.ua:9050/api/account/register/sendConfirmCode', 
         {
             phone: this.state.phone,
@@ -65,68 +67,75 @@ export class SignUp extends Component {
                 return
             }
             console.log(data);
-            // if (data.Id === -32) {
-            //     Alert.alert(this.state.lang_obj.errors.minus32.name, 
-            //         this.state.lang_obj.errors.minus32.body,
-            //         [
-            //             {
-            //                 text: 'OK', onPress: () => this.props.navigation.navigate('SignIn')
-            //             }
-            //         ]    
-            //     )
-            // }
-            // if (data.Id === -34) {
-            //     Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
-            // }
-            // if (data.Id === -31) {
-            //     Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
-            // }
-            // if (data.Id === -33) {
-            //     Alert.alert(this.state.lang_obj.errors.minus33.name, this.state.lang_obj.errors.minus33.body,[{text: 'OK'}])
-            // }
+
         })
         .catch(error => {
-            console.log(error);
-            // if (error.Id === -34) {
-                // Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
-            // }
+            console.log(error.response.data)
+            if (error.response.data.Id === -32) {
+                Alert.alert(this.state.lang_obj.errors.minus32.name, 
+                    this.state.lang_obj.errors.minus32.body,
+                    [
+                        {
+                            text: 'OK', onPress: () => this.props.navigation.navigate('SignIn')
+                        }
+                    ]    
+                )
+            }
+            if (error.response.data.Id === -34) {
+                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
+            }
+            if (error.response.data.Id === -31) {
+                Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -33) {
+                Alert.alert(this.state.lang_obj.errors.minus33.name, this.state.lang_obj.errors.minus33.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -34) {
+                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body, [{text: 'OK'}])
+            }
         })
     }
     render() {
+        const windowWidth = Dimensions.get('window').width;
+        const windowHeight = Math.round(Dimensions.get('window').height);
         return (
+            <ScrollView style={{height: windowHeight, backgroundColor: '#000'}}>
+            <View style={{height: windowHeight, backgroundColor: '#000'}}>
+            <View>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+            <Logo />
+          </View>
+          <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: ru});
+                  SyncStorage.set('lang', 'ru')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/ru.jpg')}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: uk});
+                  SyncStorage.set('lang', 'uk')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/ua.png')}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: en});
+                  SyncStorage.set('lang', 'en')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/uk.png')}
+              />
+              </TouchableOpacity>
+            </View>
+        </View>
             <View style={styles.MainLogin}>
-                <View>
-                    <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: ru});
-                            SyncStorage.set('lang', 'ru')
-                        }}>
-                            <Flag
-                                code="RU"
-                                size={64}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: uk});
-                            SyncStorage.set('lang', 'uk')
-                        }}>
-                            <Flag
-                                code="UA"
-                                size={64}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: en});
-                            SyncStorage.set('lang', 'en')
-                        }}>
-                            <Flag
-                                code="US"
-                                size={64}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 <View style={styles.inputsView}>
                     <TextInput
                         style={styles.input}
@@ -145,6 +154,8 @@ export class SignUp extends Component {
                     <Text style={styles.routesTexts} onPress={() => {this.props.navigation.navigate('SignIn')}}>{this.state.lang_obj.alreadyHaveAcc}</Text>
                 </View>
             </View>
+        </View>
+        </ScrollView>
         )
     }
 }

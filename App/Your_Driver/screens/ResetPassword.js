@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as Font from 'expo-font';
 import styles from '../Styles'
-import {View, Text, Button, Alert, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, ScrollView, Alert, Image, TextInput, TouchableOpacity} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MainOrder } from './MainOrder'
@@ -11,7 +11,7 @@ import {Logo} from '../Logo';
 import * as ru from '../langs/ru.json';
 import * as uk from '../langs/uk.json';
 import * as en from '../langs/en.json';
-import Flag from 'react-native-flags';
+import { Dimensions } from 'react-native';
 
 export class ResetPassword extends Component {
     state = {
@@ -46,67 +46,75 @@ export class ResetPassword extends Component {
             //     // 'X-WO-API-APP-ID': '10999',
             // },
              {
-                phone: this.state.phone,
+                phone: this.state.phone,    
             }
         )
         .then((data) => {
             console.log(data);
             if (data.status === 200) {
-                SyncStorage.set('phone', this.state.phone);
+                SyncStorage.set('phone_confirm', this.state.phone);
                 this.props.navigation.navigate('ResetPasswordConfirm');
             }
-            // if (data.Id === -3) {
-            //     Alert.alert(this.state.lang_obj.errors.minus3.name, this.state.lang_obj.errors.minus3.body,[{text: 'OK'}])
-            // }
-            // if (data.Id === -4) {
-            //     Alert.alert(this.state.lang_obj.errors.minus4.name, this.state.lang_obj.errors.minus4.body,[{text: 'OK'}])
-            // }
-            // if (data.Id === -5) {
-            //     Alert.alert(this.state.lang_obj.errors.minus5.name, this.state.lang_obj.errors.minus5.body,[{text: 'OK'}])
-            // }
-            // if (data.Id === -31) {
-            //     Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
-            // }
-            // if (data.Id === -34) {
-            //     Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body,[{text: 'OK'}])
-            // }
-        });
+        })
+        .catch(error => {
+            if (error.response.data.Id === -3) {
+                Alert.alert(this.state.lang_obj.errors.minus3.name, this.state.lang_obj.errors.minus3.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -4) {
+                Alert.alert(this.state.lang_obj.errors.minus4.name, this.state.lang_obj.errors.minus4.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -5) {
+                Alert.alert(this.state.lang_obj.errors.minus5.name, this.state.lang_obj.errors.minus5.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -31) {
+                Alert.alert(this.state.lang_obj.errors.minus31.name, this.state.lang_obj.errors.minus31.body,[{text: 'OK'}])
+            }
+            if (error.response.data.Id === -34) {
+                Alert.alert(this.state.lang_obj.errors.minus34.name, this.state.lang_obj.errors.minus34.body,[{text: 'OK'}])
+            }
+        })
     }
     render() {
+        const windowWidth = Dimensions.get('window').width;
+        const windowHeight = Math.round(Dimensions.get('window').height);
         return (
+            <ScrollView style={{height: windowHeight, backgroundColor: '#000'}}>
+            <View style={{height: windowHeight, backgroundColor: '#000'}}>
+            <View>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+            <Logo />
+          </View>
+          <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: ru});
+                  SyncStorage.set('lang', 'ru')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/ru.jpg')}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: uk});
+                  SyncStorage.set('lang', 'uk')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/ua.png')}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                  this.setState({lang_obj: en});
+                  SyncStorage.set('lang', 'en')
+              }}>
+              <Image 
+                  style={{height: 30, width: 43}}
+                  source={require('../socialImages/uk.png')}
+              />
+              </TouchableOpacity>
+            </View>
+        </View>
             <View style={styles.MainLogin}>
-                <View>
-                    <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: ru});
-                            SyncStorage.set('lang', 'ru')
-                        }}>
-                            <Flag 
-                                code="RU"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: uk});
-                            SyncStorage.set('lang', 'uk')
-                        }}>
-                            <Flag
-                                code="UA"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: en});
-                            SyncStorage.set('lang', 'en')
-                        }}>
-                            <Flag
-                                code="US"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 <View style={styles.inputsView}>
                     <TextInput
                         style={styles.input}
@@ -124,6 +132,8 @@ export class ResetPassword extends Component {
                     <Text style={styles.routesTexts} onPress={() => {this.props.navigation.navigate('SignIn', {'foo': 'bar'})}}>{this.state.lang_obj.signin}</Text>
                 </View>
             </View>
+        </View>
+        </ScrollView>
         )
     }
 }

@@ -7,21 +7,29 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.jpg",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
-      "bundleIdentifier": "com.yourcompany.yourappname",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "yourdriver.cc.ua",
+      "buildNumber": "2.0.0",
+      "config": {
+        "googleMapsApiKey": "AIzaSyB7Yiz0TxhUwm4WKaPG_Ib8c9U54xE46YI"
+      }
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
-      "versionCode": 1
+      "package": "yourdriver.cc.ua",
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBXXSCymEDIOg96bECp45oDVZdw-Ft0QXI"
+        }
+      }
     },
     "updates": {
       "fallbackToCacheTimeout": 0

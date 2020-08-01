@@ -3,24 +3,67 @@
     "signin_btn": "SIGN IN",
     "register": "Sign up",
     "signin": "Sign in",
+    "on_city": "Around town",
+    "get_taxi": "Order a taxi",
     "reset_pass": "Forgot your password?",
     "alreadyHaveAcc": "Already have an account? Sign in",
     "btnSend": "SEND",
     "geoProblemPermission": "If you have problems with geolocation, call us:",
     "oneDayDriverBtn": "Driver for a day",
     "driverBtn": "Driver",
-    "driverIsFound": "Driver found, expect a call or call:",
+    "driverIsFound": "Driver found",
     "disableOrderBtn": "Cancel the order",
     "btnconfirm": "Confirm",
-    "searchDriver": "Searching for driver...",
-    "searchFullDayDriver": "Searching for a driver for a day...",
+    "name": "Name",
+    "searchDriver": "Searching for driver",
+    "searchFullDayDriver": "Searching for a driver for a day",
     "yourGeo": "Your location:",
-
-        "confirmCode": "Confirmation code",
-        "confirmPass": "Confirm the password",
-        "phone": "Phone",
-        "password": "Password",
+    "confirmCode": "Confirmation code",
+    "driverIsComming": "The driver is waiting for You!",
+    "cooseEndPoint": "Select end point!",
+    "confirmPass": "Confirm the password",
+    "helloText": "With us the cheapest and 100% quality service!",
+    "weFindYou": "We found you!",
+    "whereTo": "Where are you planning?",
+    "editAddressText": "Change address",
+    "secondAddressText": "Enter the address",
+    "choose_start_place": "Select starting address",
+    "city": "Change city",
+    "phone": "Phone",
+    "password": "Password",
+    "locationNotSupport": {
+        "title": "The service is not available in your city!",
+        "body": "Call one of the phone numbers below."
+    },
+    "areYouSure": {
+        "name": "Are you sure?",
+        "body": "You are trying to cancel an order. Are you sure?",
+        "yes": "YES",
+        "no": "NO"
+    },
+    "call": "CALL",
+    "driver_disable_order": "The driver canceled the order",
+    "messageOrderPlaceholder": "Message",
+    "messageOrderText": "Additional instructions:",
+    "cooseCityPlaceholder": "Change city",
+    "yourCity": "Your city",
+    "street": "Street",
+    "choose_street": "Change street",
+    "choose_house": "Change house",
+    "house": "House",
     "errors": {
+        "chooseEndPointErr": {
+            "name": "Stop!",
+            "body": "Enter the endpoint address!"
+        },
+        "passwordConfirmError1": {
+            "name": "Oops .. passwords don't match",
+            "body": "Make sure the passwords you entered are correct!"
+        },
+        "passwordisEmpty": {
+            "name": "The password fields are empty!",
+            "body": "Please complete both fields."
+        },
         "geoError": {
             "name": "Oops ... Could not find out your location",
             "body": "Please give the application access to your geolocation."

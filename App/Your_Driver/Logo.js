@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as Font from 'expo-font';
 import styles from './Styles'
-import {View, Text } from 'react-native'
+import {View, Text, ScrollView } from 'react-native'
 
 export class Logo extends Component {
   async componentDiMount() {

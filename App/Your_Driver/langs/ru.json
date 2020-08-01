@@ -2,25 +2,67 @@
     "lang": "ru",
     "signin_btn": "ВОЙТИ",
     "register": "Регистрация",
+    "get_taxi": "Заказать такси",
     "signin": "Войти",
     "reset_pass": "Забыли пароль?",
     "alreadyHaveAcc": "Уже есть аккаунт? Войдите",
     "btnSend": "ОТПРАВИТЬ",
-    "geoProblemPermission": "Если у вас возникли проблемы с геолокацией, позвоните нам:",
+    "geoProblemPermission": "Если у Вас возникли проблемы с геолокацией, свяжитесь с нами:",
     "oneDayDriverBtn": "Водитель на сутки",
     "driverBtn": "Драйвер",
-    "driverIsFound": "Водитель найден, ожидайте звонка либо позвоните:",
+    "driverIsFound": "Водитель найден",
     "disableOrderBtn": "Отменить заказ",
     "btnconfirm": "Подтвердить",
-    "searchDriver": "Идёт поиск драйвера...",
-    "searchFullDayDriver": "Идёт поиск водителя на сутки...",
+    "searchDriver": "Идёт поиск водителя",
+    "searchFullDayDriver": "Идёт поиск водителя на сутки",
     "yourGeo": "Ваше местоположение:",
     "confirmCode": "Код подтверждения",
+    "name": "Имя",
+    "cooseEndPoint": "Выберите конечную точку!",
+    "driverIsComming": "Водитель ожидает Вас!",
     "confirmPass": "Подтвердите пароль",
     "phone": "Телефон",
     "password": "Пароль",
-
+    "helloText": "С нами дешевле и 100% качественный сервис!",
+    "weFindYou": "Вот Вы где!",
+    "whereTo": "Куда планируете?",
+    "editAddressText": "Изменить адрес",
+    "secondAddressText": "Укажите адрес",
+    "city": "Выбрать город",
+    "choose_street": "Выбрать улицу",
+    "choose_house": "Выбрать дом",
+    "choose_start_place": "Выберите начальную точку",
+    "yourCity": "Ваш город",
+    "street": "Улица",
+    "house": "Дом",
+    "locationNotSupport": {
+        "title": "Услуга не доступна в вашем городе!",
+        "body": "Позвоните на один из ниже указаных номеров телефонов."
+    },
+    "messageOrderPlaceholder": "Сообщение",
+    "cooseCityPlaceholder": "Выберите город",
+    "messageOrderText": "Дополнительные указания:",
+    "areYouSure": {
+        "name": "Вы уверены?",
+        "body": "Вы пытаетесь отменить заказ. вы уверены?",
+        "yes": "ДА",
+        "no": "НЕТ"
+    },
+    "call": "ПОЗВОНИТЬ",
+    "driver_disable_order": "Водитель отменил заказ",
     "errors": {
+        "chooseEndPointErr": {
+            "name": "Стоп!",
+            "body": "Укажите адрес конечной точки!"
+        },
+        "passwordConfirmError1": {
+            "name": "Упс.. пароли не совпадают",
+            "body": "Убедитесь, что введённые вами пароли правильны!"
+        },
+        "passwordisEmpty": {
+            "name": "Поля паролей пустые!",
+            "body": "Заполните оба поля."
+        },
         "geoError": {
             "name": "Упс... Не удалось узнать ваше местоположение",
             "body": "Пожалуйста, дайте приложению доступ к Вашей геолокации."

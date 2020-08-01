@@ -2,26 +2,68 @@
     "lang": "uk",
     "signin_btn": "УВІЙТИ",
     "register": "Реєстрація",
+    "get_taxi": "Замовити таксі",
+    "on_city": "По місту",
     "signin": "Увійти",
     "reset_pass": "Забули пароль?",
     "alreadyHaveAcc": "Вже є аккаунт? Увійдіть",
     "btnSend": "НАДІСЛАТИ",
-    "geoProblemPermission": "Якщо у вас виникли проблеми з геолокації, зателефонуйте нам:",
+    "geoProblemPermission": "Якщо у Вас виникли проблеми з геолокацією, зв'яжіться з нами:",
     "oneDayDriverBtn": "Водій на добу",
     "driverBtn": "Драйвер",
-    "driverIsFound": "Водій знайдений, чекайте дзвінка або зателефонуйте:",
+    "driverIsFound": "Водій знайдений",
     "disableOrderBtn": "Скасувати замовлення",
     "btnconfirm": "Підтвердити",
-    "searchDriver": "Йде пошук драйвера...",
-    "searchFullDayDriver": "Йде пошук водія на добу...",
+    "searchDriver": "Йде пошук водія",
+    "searchFullDayDriver": "Йде пошук водія на добу",
     "yourGeo": "Ваше місце розташування:",
- 
-        "confirmCode": "Код підтвердження",
-        "confirmPass": "Підтвердіть пароль",
-        "phone": "Телефон",
-        "password": "Пароль",
-
+    "confirmCode": "Код підтвердження",
+    "confirmPass": "Підтвердіть пароль",
+    "name": "Ім'я",
+    "helloText": "З нами дешевше та 100% якісний сервіс!",
+    "phone": "Телефон",
+    "weFindYou": "Ось Ви де!",
+    "whereTo": "Куди плануєте?",
+    "choose_street": "Выбрати вулицю",
+    "cooseEndPoint": "Виберіть кінцеву точку!",
+    "driverIsComming": "Водій очікує Вас!",
+    "choose_house": "Вибрати будинок",
+    "editAddressText": "Змінити адресу",
+    "secondAddressText": "Вкажіть адресу",
+    "choose_start_place": "Виберіть початкову адресу",
+    "city": "Вибрати місто",
+    "street": "Вулиця",
+    "house": "Будинок",
+    "password": "Пароль",
+    "locationNotSupport": {
+        "title": "Послуга не доступна в вашому місті!",
+        "body": "Зателефонуйте на один з нижче вказаних номерів телефонів."
+    },
+    "areYouSure": {
+        "name": "Ви впевнені?",
+        "body": "Ви намагаєтеся скасувати замовлення. ви впевнені?",
+        "yes": "ТАК",
+        "no": "НІ"
+    },
+    "call": "ЗАТЕЛЕФОНУВАТИ",
+    "messageOrderPlaceholder": "Повідомлення",
+    "messageOrderText": "Додаткові вказівки:",
+    "driver_disable_order": "Водій скасував замовлення",
+    "cooseCityPlaceholder": "Виберіть місто",
+    "yourCity": "Ваше місто",
     "errors": {
+        "chooseEndPointErr": {
+            "name": "Стоп!",
+            "body": "Вкажіть адресу кінцевої точки!"
+        },
+        "passwordConfirmError1": {
+            "name": "Упс... паролі не збігаються",
+            "body": "Переконайтеся, що введені вами паролі правильні!"
+        },
+        "passwordisEmpty": {
+            "name": "Поля паролів порожні!",
+            "body": "Заповніть обидва поля."
+        },
         "geoError": {
             "name": "Упс ... Не вдалося дізнатися ваше місце розташування.",
             "body": "Будь ласка, дайте додатком доступ до Вашої геолокації."

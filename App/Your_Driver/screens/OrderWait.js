@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from '../Styles'
-import {View, Text, Button, Alert, TouchableOpacity, Linking} from 'react-native'
+import {View, Text, Animated, ScrollView, Easing, Vibration, Image, Alert, TouchableOpacity, Linking} from 'react-native'
 import SyncStorage from 'sync-storage';
 import { Map } from './Map'
 import axios from 'axios';
@@ -10,6 +10,7 @@ import * as ru from '../langs/ru.json';
 import * as uk from '../langs/uk.json';
 import * as en from '../langs/en.json';
 import Flag from 'react-native-flags';
+import { Dimensions } from 'react-native';
 
 export class OrderWait extends Component {
   constructor(props){
@@ -21,14 +22,38 @@ export class OrderWait extends Component {
       location: {},
       driver_phone: '',
       appButtonContainer: {
-        elevation: 8, 
+        fontFamily: 'serif',
+        elevation: 8,   
         backgroundColor: "#ffac33",
         borderRadius: 10,
         paddingVertical: 10,
         paddingHorizontal: 12,
         margin: 5,
       },
+      btnSuccess: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        fontFamily: 'serif',
+        elevation: 8, 
+        backgroundColor: "#ffac33",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        margin: 5,
+        marginTop: '5%'
+      },
+      btnSuccessGreen: {
+        fontFamily: 'serif',
+        elevation: 8, 
+        backgroundColor: "#009688",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        margin: 5,
+        marginTop: '5%'
+      },
       btnDisableOrder: {
+        fontFamily: 'serif',
         elevation: 8, 
         backgroundColor: "#ef5350",
         borderRadius: 10,
@@ -38,24 +63,39 @@ export class OrderWait extends Component {
       },
       orderCost: '',
       appButtonText: {
+        fontFamily: 'serif',
         fontSize: 18,
         color: "#fff",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
       },
+      renderBtns: [],
+      orderBtnText: '',
+      rotateAnim: new Animated.Value(0)
     }
-    if (this.props.route.params.driverTypeParam === 'fullDay') {
-      // this.state.orderBtnText = this.state.lang_obj.searchFullDayDriver;
-      this.state.appButtonText.fontSize = 15;
-    } else {
-      // this.state.orderBtnText = this.state.lang_obj.searchDriver;
+    try {
+      if (this.props.route.params.driverTypeParam === 'fullDay') {
+        // this.state.orderBtnText = this.state.lang_obj.searchFullDayDriver;
+        this.state.appButtonText.fontSize = 15;
+      } 
+    } catch (error) {
+      if (SyncStorage.get('driverType') === 'fullDay') {
+        // this.state.orderBtnText = this.state.lang_obj.searchFullDayDriver;
+        this.state.appButtonText.fontSize = 15;
+      } 
     }
-    this.state.location = this.props.route.params.location;
-    this.state.orderCost = this.props.route.params.orderCost;
+    try {
+      this.state.location = this.props.route.params.location;
+      this.state.orderCost = this.props.route.params.orderCost;
+    } catch (error) {
+      this.state.location = SyncStorage.get('location');
+      this.state.orderCost = SyncStorage.get('orderCost');
+    }
     this.state.orderBtnText = this.state.lang_obj.searchDriver;
   } 
   componentDidMount() {
+    this.startAnimation()
     this.props.navigation.addListener('focus', () => {
         if (SyncStorage.get('lang') == undefined) {
             SyncStorage.set('lang', 'uk');
@@ -70,9 +110,81 @@ export class OrderWait extends Component {
             this.setState({lang_obj: en});
         }
     });
+    this.driverDetector();
  }
-  disableOrder = () => {
-    const url = 'http://online.deluxe-taxi.kiev.ua:9050/api/weborders/cancel/' + this.state.orderCost;
+ wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+driverDetector = async () => {
+  while(this.state.flagWhile) {
+    axios.get('http://online.deluxe-taxi.kiev.ua:'+SyncStorage.get('port')+'/api/weborders/' + SyncStorage.get('uid'), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Basic YWNod...YQ==',
+      }
+    })
+    .then(data => {
+      console.log(SyncStorage.get('uid'));
+      if (data.data.driver_execution_status === 2) {
+        Vibration.vibrate(1000)
+        this.setState({driverIsComming: true})
+        this.state.flagWhile = false;
+        SyncStorage.remove('uid')
+        return null;
+      }
+      if (data.data.driver_execution_status === 7) {
+        Vibration.vibrate(1000)
+        this.state.flagWhile = false;
+        SyncStorage.remove('uid')
+        return null;
+      }
+      if (data.data.driver_phone) {
+        if (!this.state.driverFoundFlag) {
+          Vibration.vibrate(1000)
+          this.setState({driverFoundFlag: true});
+        }
+        console.log(data.data)
+        this.setState({driver_phone: data.data.driver_phone});
+        this.setState({orderStatusFlag: true})
+        this.setState(prevState => ({
+          location: {
+              ...prevState.location,
+              lat: data.data.drivercar_position.lat,
+              lon: data.data.drivercar_position.lng,
+          }
+        }))
+        // return null;
+      } else if (data.data.close_reason === 1) {
+          Vibration.vibrate(1000)
+          Alert.alert(this.state.lang_obj.driver_disable_order)
+          this.setState({flagWhile: false});
+          SyncStorage.remove('uid')
+          this.props.navigation.dispatch(StackActions.replace('MainOrder'));
+          return null
+      } else {
+        console.log('Driver not found');
+      }
+    });
+    await this.wait(10000);
+  };
+}
+  startAnimation () {
+    this.state.rotateAnim.setValue(0)
+    Animated.timing(
+      this.state.rotateAnim,
+      {
+        toValue: 1,
+        duration: 2000,
+        easing: Easing.linear,
+        useNativeDriver: false
+      }
+    ).start(() => {
+      this.startAnimation()
+    })
+  }
+  disableOrderConfirm = () => {
+    const url = 'http://online.deluxe-taxi.kiev.ua:'+SyncStorage.get('port')+'/api/weborders/cancel/' + this.state.orderCost;
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -81,111 +193,143 @@ export class OrderWait extends Component {
       }
     })
     .then(data => {
-      // if (data.status === 200) {
-        this.state.flagWhile = false;
+      if (data.status === 200) {
+        this.setState({flagWhile: false});
+        SyncStorage.remove('uid')
         this.props.navigation.dispatch(StackActions.replace('MainOrder'));
-      // }
+      }
     })
     .catch(error => {
       console.log(error);
     });
     console.log(url);
   }
-    render() {
-      function wait(ms) {
-        return new Promise(r => setTimeout(r, ms));
+  disableOrder = () => {
+    Alert.alert(this.state.lang_obj.areYouSure.name, this.state.lang_obj.areYouSure.body, [
+      {
+        text: this.state.lang_obj.areYouSure.no,
+      },
+      {
+        text: this.state.lang_obj.areYouSure.yes,
+        onPress: () => this.disableOrderConfirm()
       }
-      const hello = async () => {
-        while(this.state.flagWhile) {
-          axios.get('http://online.deluxe-taxi.kiev.ua:9050/api/weborders/' + SyncStorage.get('uid'), {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Basic YWNod...YQ==',
-            }
-          })
-          .then(data => {
-            console.log(SyncStorage.get('uid'));
-            if (data.data.driver_phone) {
-              this.state.flagWhile = false;
-              this.state.orderBtnText = this.state.lang_obj.driverIsFound;
-              this.setState({driver_phone: data.data.driver_phone});
-              console.log(this.state.driver_phone);
-              return null;
-            } else {
-              console.log('Driver not found');
-              // this.setState({driver_phone: '380661394160'});
-            }
-            // this.state.btnDisableOrder.backgroundColor = '#009688';
-          });
-          await wait(20000);
-        };
-      }
-      hello();
+    ], { cancelable: false }
+    )
+  }
+  _renderBtns () {
+    if (this.state.orderStatusFlag) {
       return (
-        <View style={styles.Main}>
-                <View>
-                    <Logo />
-                    <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: ru});
-                            SyncStorage.set('lang', 'ru')
-                        }}>
-                            <Flag 
-                                code="RU"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: uk});
-                            SyncStorage.set('lang', 'uk')
-                        }}>
-                            <Flag
-                                code="UA"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({lang_obj: en});
-                            SyncStorage.set('lang', 'en')
-                        }}>
-                            <Flag
-                                code="US"
-                                size={48}
-                            />
-                        </TouchableOpacity>
-                    </View>
+      <TouchableOpacity onPress={() => (Linking.openURL('tel:'+this.state.driver_phone))} style={this.state.btnSuccessGreen}>
+        <Text style={styles.appButtonText}>{this.state.lang_obj.call}</Text>
+      </TouchableOpacity>
+      );
+    } else {
+      return null;
+    }
+  }
+  _btnCardFound () {
+    if (this.state.orderStatusFlag) {
+      return (
+        this.state.driverIsComming ? (
+          <View style={this.state.btnSuccessGreen}>
+            <Text style={this.state.appButtonText}>
+                {this.state.lang_obj.driverIsComming}
+            </Text>
+          </View>
+        ) : (
+          <View style={this.state.btnSuccessGreen}>
+            <Text style={this.state.appButtonText}>
+                {this.state.lang_obj.driverIsFound}
+            </Text>
+          </View>
+        )
+      );
+    } else {
+      return (
+        <View style={this.state.btnSuccess}>
+          <Text style={this.state.appButtonText}>{this.state.orderStatus}</Text>
+          <Animated.Image
+          style={[styles.iconWait,
+            {transform: [
+              {rotate: this.state.rotateAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [
+                  '0deg', '360deg'
+                ]
+              })}
+            ]}
+          ]}
+          source={require('../socialImages/hourglass.png')} />
+        </View>
+      )
+    }
+  }
+  _MapController = () => {
+    console.log(this.state.street)
+    return  (
+      <View>
+        <Map height={350} width={350} location={this.state.location} location_name={this.state.location_name} location_number={this.state.location_number} enableLocation={false} />
+      </View>
+    )
+  }
+    render() {
+      this.state.orderStatus = this.state.lang_obj.searchDriver;
+      const windowWidth = Dimensions.get('window').width;
+      const windowHeight = Math.round(Dimensions.get('window').height);
+      return (
+        <ScrollView style={{height: windowHeight, backgroundColor: '#000'}}>
+        <View style={{height: windowHeight, backgroundColor: '#000'}}>
+        <View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+                <Logo />
+              </View>
+              <View onPress={() => this.setState({lang_obj: ru})} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+                  <TouchableOpacity onPress={() => {
+                      this.setState({lang_obj: ru});
+                      SyncStorage.set('lang', 'ru')
+                  }}>
+                  <Image 
+                      style={{height: 30, width: 43}}
+                      source={require('../socialImages/ru.jpg')}
+                  />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                      this.setState({lang_obj: uk});
+                      SyncStorage.set('lang', 'uk')
+                  }}>
+                  <Image 
+                      style={{height: 30, width: 43}}
+                      source={require('../socialImages/ua.png')}
+                  />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                      this.setState({lang_obj: en});
+                      SyncStorage.set('lang', 'en')
+                  }}>
+                  <Image 
+                      style={{height: 30, width: 43}}
+                      source={require('../socialImages/uk.png')}
+                  />
+                  </TouchableOpacity>
                 </View>
+            </View>
+        <View style={styles.Main}>
           <View style={styles.OrderView}>
             <View>
               <View style={styles.orderBtns}>
                 <TouchableOpacity onPress={this.disableOrder} style={this.state.btnDisableOrder}>
                   <Text style={styles.appButtonText}>{this.state.lang_obj.disableOrderBtn}</Text>
-                </TouchableOpacity>
-                <View style={this.state.appButtonContainer}>
-                  <Text style={this.state.appButtonText}>{this.state.lang_obj.searchDriver}</Text>
-                </View>
-                <View>
-                  <Text style={this.state.appButtonText}>{this.state.driver_phone}</Text>
-                </View>
-              </View>
-            </View>
-            {/* <Text style={styles.linkSi  te}  onPress={() => (Linking.openURL('http://yourdriver.cc.ua/'))}>yourdriver.cc.ua</Text> */}
-          </View>
-          <View> 
-            <Map location={this.state.location} enableLocation={true} />
-          </View>
-          <View>
-            <View style={styles.Phones}>
-              <Text style={styles.HelpText}>{this.state.lang_obj.geoProblemPermission}</Text>
-              <View style={styles.PhoneNumbers}>
-                <Text style={styles.PriceText} onPress={() => (Linking.openURL('tel:380675999662'))}>+38 (067)-5-999-662</Text>
-                <Text style={styles.PriceText} onPress={() => (Linking.openURL('tel:380635999662'))}>+38 (063)-5-999-662</Text>
-                <Text style={styles.PriceText} onPress={() => (Linking.openURL('tel:380505999662'))}>+38 (050)-5-999-662</Text>
+                </TouchableOpacity>                 
+                  {this._btnCardFound()} 
+                  {this._renderBtns()} 
+                
               </View>
             </View>
           </View>
+          {this._MapController()}
         </View>
+        </View>
+        </ScrollView>
       )
     }
   }
