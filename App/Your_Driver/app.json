@@ -9,14 +9,14 @@
     ],
     "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.jpg",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.jpg",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
     "ios": {
-      "bundleIdentifier": "yourdriver.cc.ua",
+      "bundleIdentifier": "ua.cc.yourdriver",
       "buildNumber": "2.0.0",
       "config": {
         "googleMapsApiKey": "AIzaSyB7Yiz0TxhUwm4WKaPG_Ib8c9U54xE46YI"

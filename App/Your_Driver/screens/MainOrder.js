@@ -150,6 +150,7 @@ export class MainOrder extends Component {
             <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
             </View>
           )
         }
@@ -158,6 +159,7 @@ export class MainOrder extends Component {
             <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
             </View>
           )
         }
@@ -166,6 +168,7 @@ export class MainOrder extends Component {
             <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
             </View>
           )
         }
@@ -210,9 +213,9 @@ export class MainOrder extends Component {
     linkingApp = () => {
       Linking.canOpenURL("tg://app").then(supported => {
         if (supported) {
-          Linking.openURL("https://play.google.com/store/apps/details?id=com.facebook.katana&hl=ru");
+          Linking.openURL("fb://app");
         } else {
-          Alert.alert('sorry invalid url')
+          Linking.openURL("https://play.google.com/store/apps/details?id=com.facebook.katana&hl=ru");
         }
       });
     }
@@ -281,7 +284,7 @@ export class MainOrder extends Component {
             <View style={{width: '60%'}}>
               <View style={styles.orderBtns}>
                 <TouchableOpacity onPress={(this.fullDayOrder)} style={this.state.appButtonContainer}>
-                  <Text style={styles.appButtonText}>{this.state.lang_obj.oneDayDriverBtn}</Text>
+                  <Text style={styles.appButtonTextFullDay}>{this.state.lang_obj.oneDayDriverBtn}</Text>
                 </TouchableOpacity>
                 {this._tariffsDriver()}
                 <TouchableOpacity onPress={(this.driverOrder)} style={this.state.appButtonContainer}>
@@ -291,11 +294,11 @@ export class MainOrder extends Component {
               </View>
             </View>
             <View style={{borderWidth: 2, borderBottomColor: '#3d63db'}}>
-              <Text style={styles.linkSite} onPress={() => this.linkingApp()}>
+              <Text style={styles.linkApp} onPress={() => this.linkingApp()}>
                   {this.state.lang_obj.get_taxi}
               </Text>
             </View>
-            <Text style={styles.linkSite}  onPress={() => this.linkingApp}>YourDriver.cc.ua</Text>
+            <Text style={styles.linkSite} onPress={() => (Linking.openURL('http://http://yourdriver.cc.ua/'))}>YourDriver.cc.ua</Text>
           </View>
           <View style={styles.HelpTextView}>
                 <Text style={styles.TextErrHelp}>{this.state.lang_obj.geoProblemPermission}</Text>

@@ -100,7 +100,7 @@ const styles = {
     alignItems: 'center',
   },
   HelpTextView: {
-    marginTop: '15%',
+    marginTop: '5%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -203,9 +203,20 @@ const styles = {
     paddingVertical: 10,
     paddingHorizontal: 10
   },
+  orderBtns: {
+    marginTop: '-7%'
+  },
   appButtonText: {
     fontFamily: 'serif',
     fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
+  appButtonTextFullDay: {
+    fontFamily: 'serif',
+    fontSize: 14,
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
@@ -225,7 +236,7 @@ const styles = {
     borderBottomColor: '#ffac55',
     fontFamily: 'serif',
     fontSize: 15,
-    color: "#fff",
+    color: "#ffac33",
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase",
@@ -260,6 +271,13 @@ const styles = {
     fontFamily: 'serif',  
     paddingTop: 20,
     color: 'white',
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  linkApp: {
+    fontFamily: 'serif',  
+    paddingTop: 20,
+    color: '#3d63db',
     fontWeight: "bold",
     fontSize: 18,
   },

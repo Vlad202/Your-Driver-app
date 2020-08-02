@@ -142,7 +142,7 @@ export class secondAdress extends Component {
         }
     }
     renderCheckBox = () => {
-        if (this.state.firstAddress) {
+        if (!this.state.firstAddress) {
             return (
                 <View style={{flexDirection: 'row', width: '50%', justifyContent: 'space-around'}}>
                 <View>

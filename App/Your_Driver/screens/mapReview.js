@@ -163,6 +163,7 @@ export class MapReview extends Component {
         }
         try {
           if (!this.props.route.params.firstAddress) {
+            this.setState({checkboxValue: this.props.route.params.checkboxValue})
             this.setState({second_location_name: this.props.route.params.address.street});
             this.setState({second_number: this.props.route.params.address.house});
             let editAddr = this.props.route.params.address.street.slice(0, 18) + '... ' + this.props.route.params.address.house
@@ -181,7 +182,6 @@ export class MapReview extends Component {
               }
             }))
           } else {
-            this.setState({checkboxValue: this.props.route.params.checkboxValue})
             let editAddr = this.props.route.params.address.street + ' ' + this.props.route.params.address.house
             if (editAddr.length > 26) {
               editAddr = editAddr.slice(0, 26) + '...'
