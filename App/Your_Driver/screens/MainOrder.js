@@ -28,6 +28,14 @@ export class MainOrder extends Component {
           paddingHorizontal: 12,
           margin: 5,
         },
+        appButtonContainerDriver: {
+          elevation: 8, 
+          backgroundColor: "#009688",
+          borderRadius: 10,
+          paddingVertical: 10,
+          paddingHorizontal: 12,
+          margin: 5,
+        },
         order: '',
         chooseAddr: {
           padding: 8,
@@ -147,7 +155,7 @@ export class MainOrder extends Component {
         let lang = SyncStorage.get('lang');
         if (lang === 'ru') {
           return (
-            <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
@@ -156,7 +164,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'uk') {
           return (
-            <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{ marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
@@ -165,7 +173,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'en') {
           return (
-            <View style={{marginBottom: '2%', marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{ marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
@@ -180,7 +188,7 @@ export class MainOrder extends Component {
         let lang = SyncStorage.get('lang');
         if (lang === 'ru') {
           return (
-            <View style={{marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[2]}</Text>
@@ -189,7 +197,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'uk') {
           return (
-            <View style={{marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[2]}</Text>
@@ -198,7 +206,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'en') {
           return (
-            <View style={{marginLeft: 'auto', marginRight: 'auto'}}>
+            <View style={{marginLeft: '15%', marginRight: '10%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[2]}</Text>
@@ -287,7 +295,7 @@ export class MainOrder extends Component {
                   <Text style={styles.appButtonTextFullDay}>{this.state.lang_obj.oneDayDriverBtn}</Text>
                 </TouchableOpacity>
                 {this._tariffsDriver()}
-                <TouchableOpacity onPress={(this.driverOrder)} style={this.state.appButtonContainer}>
+                <TouchableOpacity onPress={(this.driverOrder)} style={this.state.appButtonContainerDriver}>
                   <Text style={styles.appButtonText}>{this.state.lang_obj.driverBtn}</Text>
                 </TouchableOpacity>
                 {this._tariffsFull()}
