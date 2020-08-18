@@ -155,7 +155,7 @@ export class MainOrder extends Component {
         let lang = SyncStorage.get('lang');
         if (lang === 'ru') {
           return (
-            <View style={{marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
@@ -164,19 +164,19 @@ export class MainOrder extends Component {
         }
         if (lang === 'uk') {
           return (
-            <View style={{ marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{ marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.fullDay[0]}</Text>
-              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
-              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.fullDay[1]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.fullDay[2]}</Text>
             </View>
           )
         }
         if (lang === 'en') {
           return (
-            <View style={{ marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{ marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.fullDay[0]}</Text>
-              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[1]}</Text>
-              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.fullDay[2]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.fullDay[1]}</Text>
+              <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.fullDay[2]}</Text>
             </View>
           )
         }
@@ -188,7 +188,7 @@ export class MainOrder extends Component {
         let lang = SyncStorage.get('lang');
         if (lang === 'ru') {
           return (
-            <View style={{marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.ru.Driver[2]}</Text>
@@ -197,7 +197,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'uk') {
           return (
-            <View style={{marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.uk.Driver[2]}</Text>
@@ -206,7 +206,7 @@ export class MainOrder extends Component {
         }
         if (lang === 'en') {
           return (
-            <View style={{marginLeft: '15%', marginRight: '10%'}}>
+            <View style={{marginLeft: '15%', marginRight: '3%'}}>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[0]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[1]}</Text>
               <Text style={{fontFamily: 'serif', color: 'white'}}>{this.state.dataTariffs.en.Driver[2]}</Text>
